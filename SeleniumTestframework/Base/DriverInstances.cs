@@ -1,0 +1,137 @@
+﻿
+
+using Microsoft.Extensions.Configuration;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V104.Debugger;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Internal;
+using System.Collections.Concurrent;
+using System.Drawing;
+
+namespace SeleniumWebtestFramework.Base.WebDriver
+{
+    public class DriverInstances
+    {
+
+        private readonly ConcurrentDictionary<IWebDriver, bool> _instances = new();
+        private readonly object _locker = new();
+        private int Worker { get; set; }
+        public string? URL { get; set; }
+        public Size BrowserSize { get; set; }
+        public string? BrowserName { get; set; }
+
+        public DriverInstances()
+        {
+            GetConfig();
+            StartBrowser();
+        }
+
+        private void GetConfig()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true).Build();
+
+            var url = config["url"];
+            if (url.Equals(null) || url.Equals("")) throw new ArgumentNullException("Fehlende Konfiguration der URL");
+            this.URL = url;
+
+            var x = config["BrowserSizeX"];
+            var y = config["BrowserSizeY"];
+            if (x.Equals(null) || y.Equals(null) || x.Equals("") || y.Equals("")) throw new ArgumentNullException("Fehlende Konfiguration der Browsersize");
+            BrowserSize = new Size(int.Parse(x), int.Parse(y));
+
+            BrowserName = config["BrowserTyp"];
+
+            Worker = int.Parse(config["NumberOfWorkers"]);
+
+            Console.WriteLine("Konfiguration geladen");
+        }
+
+        private void StartBrowser()
+        {
+            var drivers = new List<Task<IWebDriver>>();
+
+            for (int i = 0; i < GetNumberOfWorkerThreads(); i++)
+            {
+                var tasks = Task.Run(() => InitDriver());
+                drivers.Add(tasks);
+            }
+
+            Task.WhenAll(drivers).Wait();
+
+            foreach (var driver in drivers)
+            {
+                lock (this._locker)
+                {
+                    _instances.TryAdd(driver.Result, false);
+                }
+            }
+        }
+
+        private IWebDriver InitDriver()
+        {
+            IWebDriver instance = BrowserName switch
+            {
+                "Firefox" => new FirefoxDriver(),
+                "Chrome" => new ChromeDriver(),
+                "Edge" => new EdgeDriver(),
+                //TODO headless => Extra Case => setOptions
+                _ => throw new Exception("Kein valider Browser in den AppSettings"),
+            };
+            instance.Url = URL;
+           //Use if Angular app 
+           //new Sync().WaitForAngular(instance);
+            return instance;
+        }
+
+        private int GetNumberOfWorkerThreads()
+        {
+            return Worker != 0 ? Worker : Environment.ProcessorCount;
+
+        }
+
+        public IWebDriver Allocate()
+        {
+            IWebDriver? unusedDriver = null;
+
+            while (unusedDriver == null)
+            {
+                lock (_locker)
+                {
+                    foreach (var instance in _instances)
+                    {
+                        if (!instance.Value)
+                        {
+                            unusedDriver = instance.Key;
+                            break;
+                        }
+                    }
+
+                    if (unusedDriver != null)
+                    {
+                        _instances[unusedDriver] = true;
+                    }
+                }
+                Thread.Sleep(200); // no found repeat
+            }
+            return unusedDriver;
+        }
+        public void Release(IWebDriver driver)
+        {
+            _instances[driver] = false;
+        }
+
+        public void DisposeAll()
+        {
+            lock (_locker)
+            {
+                foreach (var instance in _instances)
+                {
+                    instance.Key.Dispose();
+                }
+            }
+        }
+
+    }
+}
