@@ -1,4 +1,5 @@
-﻿using SeleniumWebtestFramework.Base;
+﻿using SeleniumTestframework.Functions.Interactables;
+using SeleniumWebtestFramework.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace SeleniumWebtestFramework.Func.IFuncs
 {
     internal interface IRead
     {
-        public void Read<IInteractablesIInteractables>(string beschriftung, string sollWert, IArea Area);
+        public string Read(IInteractables interactble, string beschriftung, IArea Area);
     }
 }

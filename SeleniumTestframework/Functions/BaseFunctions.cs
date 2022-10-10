@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SeleniumWebtestFramework.Func.perform
 {
-    public class BaseFunctions:  BaseTestClazz, IPerform<IInteractables>, IProof, IRead
+    public class BaseFunctions:  BaseTestClazz, IPerform, IProof, IRead
     {
         public Button button = new();
        
@@ -24,6 +24,14 @@ namespace SeleniumWebtestFramework.Func.perform
             Driver!.FindElement(By.XPath(area.ToString() + interactable.Xpath /*+Etwas damit der Titel erkannt wird*/)).Click();
         }
 
-       
+        public void Proof(IInteractables interactble, string beschriftung, string sollWert, IArea Area)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Read(IInteractables interactble, string beschriftung, IArea Area)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
