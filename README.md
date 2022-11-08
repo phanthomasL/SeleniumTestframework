@@ -1,10 +1,10 @@
 # SeleniumTestframework
 
-Testframework auf Seleniumbasis. Durch einkommentieren der Synchronisation für Angualur geeignet.
+Testframework auf Seleniumbasis. Durch einkommentieren der Synchronisation für Angualur geeignet. Noch nicht fertig :(
 
 ### Key Features: 
-  - 3 Funktionen zum Testen, die Interaktionen ausführen, Wert Prüfen oder Wert lesen
-  - Erweiterbar durch definition neuer Elementer zum interagieren (Momentan nur Button)
+  - 3 Funktionen zum Testen: Interaktionen ausführen, Werte Prüfen oder Werte lesen
+  - Erweiterbar durch Definition neuer Elementer zum interagieren (Momentan nur Button)
   - Anpassbarkeit der Elemente und der Konfiguration 
   
  
