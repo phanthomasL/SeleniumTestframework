@@ -1,6 +1,6 @@
 # SeleniumTestframework
 
-Testframework auf Seleniumbasis. Noch nicht fertig, momentan konfiguriert und angepasst an mein DrinkCalc Projekt :(
+Testframework auf Seleniumbasis. Noch nicht fertig, momentan konfiguriert und angepasst an mein DrinkCalc Projekt, aber noch nicht fertig :(
 
 ### Key Features: 
   - 3 Funktionen zum Testen: Interaktionen ausführen, Werte Prüfen oder Werte lesen
