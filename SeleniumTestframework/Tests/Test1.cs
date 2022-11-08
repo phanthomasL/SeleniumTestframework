@@ -1,4 +1,5 @@
 ﻿using SeleniumWebtestFramework.Base;
+using SeleniumWebtestFramework.Base.Area;
 using SeleniumWebtestFramework.Func.IFuncs;
 using SeleniumWebtestFramework.Func.Interactables;
 using SeleniumWebtestFramework.Func.perform;
@@ -17,7 +18,12 @@ namespace SeleniumTestframework.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Perform(button,"", null);
+            #region Variablen
+            IArea buttonBar1 = new ButtonBarArea("ButtonBar bier");
+            #endregion
+
+            Perform(Button,"plus bier", buttonBar1);
+            Perform(Button, "minus bier", buttonBar1);
         }
     }
 }

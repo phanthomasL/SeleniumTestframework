@@ -8,5 +8,6 @@ namespace SeleniumWebtestFramework.Base
 {
     public interface IArea
     {
+        string Xpath { get;  }
     }
 }

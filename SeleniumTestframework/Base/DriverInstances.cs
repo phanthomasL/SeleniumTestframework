@@ -3,7 +3,7 @@
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V104.Debugger;
+
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Internal;
@@ -80,8 +80,8 @@ namespace SeleniumWebtestFramework.Base.WebDriver
                 _ => throw new Exception("Kein valider Browser in den AppSettings"),
             };
             instance.Url = URL;
-           //Use if Angular app 
-           //new Sync().WaitForAngular(instance);
+            
+           new Sync().WaitForAngular(instance);
             return instance;
         }
 

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace SeleniumWebtestFramework.Func.Interactables
 {
-    public class Button : IInteractables
+    public class Label : IInteractables
     {
         public string Xpath { get; set; }
 
-       public Button()
+       public Label()
         {
-            Xpath = "//ion-button";
+            Xpath = "//ion-label";
         }
     }
 }

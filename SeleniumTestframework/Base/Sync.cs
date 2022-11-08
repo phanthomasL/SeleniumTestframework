@@ -15,8 +15,8 @@ namespace SeleniumWebtestFramework.Base
         {
             try
             {
-                WebDriverWait wait = new WebDriverWait(instance, TimeSpan.FromSeconds(TIMEOUT));
-                wait.Until(instance => GetAngularState(instance));
+                WebDriverWait wait = new(instance, TimeSpan.FromSeconds(TIMEOUT));
+                    wait.Until(instance => GetAngularState(instance));
             }
             catch (Exception e)
             {
