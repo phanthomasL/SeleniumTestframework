@@ -1,11 +1,10 @@
 # SeleniumTestframework
 
-Testframework auf Seleniumbasis. Durch einkommentieren der Synchronisation für Angualur geeignet. Noch nicht fertig :(
+Testframework auf Seleniumbasis. Noch nicht fertig, momentan konfiguriert und angepasst an mein DrinkCalc Projekt :(
 
 ### Key Features: 
   - 3 Funktionen zum Testen: Interaktionen ausführen, Werte Prüfen oder Werte lesen
   - Erweiterbar durch Definition neuer Elemente zum interagieren (Momentan z.B. Button, Eingabefelder und Lables)
-      -> Die 
   - Elemente einfach durch Austausch des Xpaths austauschbar und wartbat
   
  
