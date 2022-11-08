@@ -4,8 +4,9 @@ Testframework auf Seleniumbasis. Durch einkommentieren der Synchronisation für 
 
 ### Key Features: 
   - 3 Funktionen zum Testen: Interaktionen ausführen, Werte Prüfen oder Werte lesen
-  - Erweiterbar durch Definition neuer Elementer zum interagieren (Momentan nur Button)
-  - Anpassbarkeit der Elemente und der Konfiguration 
+  - Erweiterbar durch Definition neuer Elemente zum interagieren (Momentan z.B. Button, Eingabefelder und Lables)
+      -> Die 
+  - Elemente einfach durch Austausch des Xpaths austauschbar und wartbat
   
  
 
@@ -13,6 +14,7 @@ Testframework auf Seleniumbasis. Durch einkommentieren der Synchronisation für 
     - Visual Studio (2019 o. später)
     - .net Core 6.0
 
-### Installation: 
+### Installation und ausführen: 
     1. Repo Klonen 
-    2. Test1 ausführen oder debuggen -> sollte im jetzigen Zustand fehlschlagen, da kein gültiger XPath ausdruck.
+    2. Annpassen der Appsettings. Momenatan wird Url Localhost:4200... geöffnet. Dies aufs eigene Projekt anpassen
+    3. Xpath-Expressions an eigenes Projekt anpassen -> z.B ion-button zu button
