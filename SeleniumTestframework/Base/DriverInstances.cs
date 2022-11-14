@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Internal;
+using SeleniumTestframework.Base.Driver;
 using System.Collections.Concurrent;
 using System.Drawing;
 
@@ -15,7 +16,7 @@ namespace SeleniumWebtestFramework.Base.WebDriver
     public class DriverInstances
     {
 
-        private readonly ConcurrentDictionary<IWebDriver, bool> _instances = new();
+        private readonly ConcurrentDictionary<IMyWebDriver, bool> _instances = new();
         private readonly object _locker = new();
         private int Worker { get; set; }
         public string? URL { get; set; }
@@ -50,7 +51,7 @@ namespace SeleniumWebtestFramework.Base.WebDriver
 
         private void StartBrowser()
         {
-            var drivers = new List<Task<IWebDriver>>();
+            var drivers = new List<Task<IMyWebDriver>>();
 
             for (int i = 0; i < GetNumberOfWorkerThreads(); i++)
             {
@@ -69,19 +70,9 @@ namespace SeleniumWebtestFramework.Base.WebDriver
             }
         }
 
-        private IWebDriver InitDriver()
+        private IMyWebDriver InitDriver()
         {
-            IWebDriver instance = BrowserName switch
-            {
-                "Firefox" => new FirefoxDriver(),
-                "Chrome" => new ChromeDriver(),
-                "Edge" => new EdgeDriver(),
-                //TODO headless => Extra Case => setOptions
-                _ => throw new Exception("Kein valider Browser in den AppSettings"),
-            };
-            instance.Url = URL;
-            
-           new Sync().WaitForAngular(instance);
+            IMyWebDriver instance = new MyWebDriver(BrowserName).Driver;
             return instance;
         }
 
@@ -91,9 +82,9 @@ namespace SeleniumWebtestFramework.Base.WebDriver
 
         }
 
-        public IWebDriver Allocate()
+        public IMyWebDriver Allocate()
         {
-            IWebDriver? unusedDriver = null;
+            IMyWebDriver? unusedDriver = null;
 
             while (unusedDriver == null)
             {
@@ -117,7 +108,7 @@ namespace SeleniumWebtestFramework.Base.WebDriver
             }
             return unusedDriver;
         }
-        public void Release(IWebDriver driver)
+        public void Release(IMyWebDriver driver)
         {
             _instances[driver] = false;
         }

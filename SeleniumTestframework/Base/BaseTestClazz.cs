@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using SeleniumTestframework.Base.Driver;
 using SeleniumWebtestFramework.Base.WebDriver;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace SeleniumWebtestFramework.Base
     {
 
         private static readonly DriverInstances driverInstances = new();
-        public IWebDriver? Driver { get; set; }
+        public IMyWebDriver? Driver { get; set; }
 
         [AssemblyCleanup]
         public static void AssemblyClean()
@@ -30,7 +31,7 @@ namespace SeleniumWebtestFramework.Base
 
             if (Driver == null)
             {
-                throw new Exception("Es konnte kein Driver allokiert werden!?");
+                throw new Exception("Es konnte kein MyDriver allokiert werden!?");
             }
             Console.WriteLine("Teststart: " + DateTime.Now);
         }
