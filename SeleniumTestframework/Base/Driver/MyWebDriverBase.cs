@@ -8,11 +8,11 @@ using System.Collections.ObjectModel;
 
 namespace SeleniumTestframework.Base.Driver
 {
-    public class MyWebDriver : IMyWebDriver
+    public class MyWebDriverBase : IMyWebDriver
     {
 
         private readonly Sync _sync = new();
-        public IMyWebDriver Driver { get; private set; }
+        public IMyWebDriver Driver { get; set; }
         public string Url { get => Driver.Url; set => Driver.Url = value; }
 
         public string Title => Driver.Title;
@@ -22,7 +22,7 @@ namespace SeleniumTestframework.Base.Driver
         public string CurrentWindowHandle => Driver.CurrentWindowHandle;
 
         public ReadOnlyCollection<string> WindowHandles => Driver.WindowHandles;
-        public MyWebDriver(string browserType) 
+        public MyWebDriverBase(string browserType) 
         {
             IMyWebDriver instance = browserType switch
             {

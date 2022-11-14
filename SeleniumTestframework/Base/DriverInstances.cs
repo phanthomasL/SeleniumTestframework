@@ -72,7 +72,7 @@ namespace SeleniumWebtestFramework.Base.WebDriver
 
         private IMyWebDriver InitDriver()
         {
-            IMyWebDriver instance = new MyWebDriver(BrowserName).Driver;
+            IMyWebDriver instance = new MyWebDriver().GetInstance(BrowserName);
             return instance;
         }
 
